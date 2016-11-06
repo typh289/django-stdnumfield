@@ -3,3 +3,9 @@ machine:
     version: 3.5.0
   post:
     - pyenv global 2.7.10 3.4.4 3.5.0
+test:
+  post:
+    - pip install coverage
+    - ./bin/cover:
+    - coverage combine:
+    - bash <(curl -s https://codecov.io/bash)
