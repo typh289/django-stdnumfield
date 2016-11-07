@@ -1,5 +1,5 @@
 # coding=utf-8
-from unittest.mock import patch
+from mock import patch
 
 from django.core.exceptions import ValidationError
 from django.test.testcases import TestCase

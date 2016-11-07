@@ -1,4 +1,5 @@
-from unittest.mock import patch
+# coding=utf-8
+from mock import patch
 
 from django.test import TestCase
 
