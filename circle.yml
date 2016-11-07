@@ -1,5 +1,14 @@
 machine:
+  pre:
+    - wget https://s3.amazonaws.com/circle-downloads/circle-pyenv-python-3.5.1_1.0_amd64.deb
+    - sudo dpkg -i circle-pyenv-python-3.5.1_1.0_amd64.deb
   python:
-    version: 3.5.0
+    version: 3.5.1
   post:
-    - pyenv global 2.7.10 3.4.4 3.5.0
+    - pyenv global 2.7.10 3.4.4 3.5.1
+test:
+  override:
+   - tox
+  post:
+    - PYTHONPATH=$PWD ./bin/cover
+    - bash <(curl -s https://codecov.io/bash)

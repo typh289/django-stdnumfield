@@ -1,0 +1,4 @@
+#!/bin/bash
+coverage erase
+coverage run --branch stdnumfield/tests/manage.py test $1
+coverage report --include=./$1* -m

@@ -1,0 +1,11 @@
+[run]
+branch = True
+include = stdnumfield/*
+omit =
+    */*test*.py
+    manage.py
+
+[report]
+omit =
+    */*test*.py
+    manage.py
