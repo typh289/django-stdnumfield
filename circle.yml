@@ -10,5 +10,5 @@ test:
   override:
    - tox
   post:
-    - PYTHONPATH=$PWD ./bin/cover
+    - ./bin/cover
     - bash <(curl -s https://codecov.io/bash)

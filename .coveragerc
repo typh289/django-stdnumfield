@@ -3,9 +3,11 @@ branch = True
 include = stdnumfield/*
 omit =
     */*test*.py
-    manage.py
+    */manage.py
+    */testproject/settings*
 
 [report]
 omit =
     */*test*.py
-    manage.py
+    */manage.py
+    */testproject/settings*
