@@ -3,5 +3,5 @@ from .forms import (  # noqa
     FormFieldValidateTest,
 )
 from .validators import (  # noqa
-    ValidatorsTets,
+    ValidatorsTests,
 )

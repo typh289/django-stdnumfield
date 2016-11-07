@@ -1,6 +1,6 @@
 from django.conf import settings
 
-from . import STDNUM_FORMATS
+from stdnumfield import STDNUM_FORMATS
 
 
 _STDNUMFIELD = {
