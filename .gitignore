@@ -2,3 +2,5 @@
 .coverage
 __pycache__
 db.sqlite3
+dist
+django_stdnumfield.egg-info
