@@ -2,5 +2,5 @@
 exclude =
     .git__pycache__,docs/source/conf.py,old,build,disz,
     */migrations/*,
-    stdnumfield/tests/testproject/settings*,
-    stdnumfield/tests/manage.py
+    */testproject/settings*,
+    */manage.py

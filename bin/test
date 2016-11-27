@@ -1,3 +1,5 @@
 #!/bin/bash
 
-python stdnumfield/tests/manage.py test
+
+PYTHONPATH="$PWD:$PWD:stdnumfield/testproject:$PYTHONPATH"
+python stdnumfield/testproject/manage.py test -v 3 testapp stdnumfield.tests
