@@ -43,6 +43,9 @@ class StdNumField(models.CharField):
         return 'CharField'
 
     def formfield(self, **kwargs):
-        defaults = {'form_class': StdnumField}
+        defaults = {
+            'form_class': StdnumField,
+            'formats': self.formats,
+        }
         defaults.update(kwargs)
         return super(StdNumField, self).formfield(**defaults)
