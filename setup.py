@@ -15,7 +15,7 @@ except (IOError, ImportError):
 
 setup(
     name='django-stdnumfield',
-    version='0.1.2',
+    version='0.1.3',
     packages=find_packages(),
     install_requires=['python-stdnum>=1.4,<1.5'],
     include_package_data=True,
