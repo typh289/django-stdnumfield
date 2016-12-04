@@ -46,6 +46,7 @@ class StdNumField(models.CharField):
     def deconstruct(self):
         name, path, args, kwargs = super(StdNumField, self).deconstruct()
         kwargs['formats'] = self.formats
+        kwargs['alphabets'] = self.alphabets
         del kwargs["max_length"]
         return name, path, args, kwargs
 
@@ -56,6 +57,7 @@ class StdNumField(models.CharField):
         defaults = {
             'form_class': StdnumField,
             'formats': self.formats,
+            'alphabets': self.alphabets,
         }
         defaults.update(kwargs)
         return super(StdNumField, self).formfield(**defaults)
