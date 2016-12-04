@@ -4,6 +4,7 @@ from django.db import models
 from django.utils.itercompat import is_iterable
 from six import string_types
 
+from stdnumfield.validators import StdnumFormatValidator
 from . import settings
 from .forms import StdnumField
 from .utils import listify
@@ -39,6 +40,8 @@ class StdNumField(models.CharField):
         # TODO make dynamic when/if stdnum provides this data:
         kwargs["max_length"] = 254
         super(StdNumField, self).__init__(*args, **kwargs)
+        self.validators.append(
+            StdnumFormatValidator(self.formats, self.alphabets))
 
     def deconstruct(self):
         name, path, args, kwargs = super(StdNumField, self).deconstruct()
