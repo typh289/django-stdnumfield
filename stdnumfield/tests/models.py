@@ -1,9 +1,9 @@
 # coding=utf-8
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.test.testcases import TestCase
 
-from stdnumfield.models import StdNumField
-from stdnumfield.testproject.testapp.models import SomeModel
+from ..models import StdNumField
+from ..testproject.testapp.models import SomeModel
 from .forms import VALID_OIB
 
 
@@ -47,4 +47,9 @@ class ModelFieldTests(TestCase):
 
     def test_alphabet_invalid(self):
         field = StdNumField('iso7064.mod_37_2', alphabets='0123456789X')
-        field.run_validators('0123456789Y')
+
+        self.assertRaises(
+            ValidationError,
+            field.run_validators,
+            '0123456789Y'
+        )

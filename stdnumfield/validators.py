@@ -12,6 +12,7 @@ from stdnumfield.utils import import_stdnum, listify
 class StdnumFormatValidator(object):
     formats = []
     alphabets = None
+    empty = (None, '')
 
     def __init__(self, formats, alphabets=None):
         if formats is not None:
@@ -30,6 +31,8 @@ class StdnumFormatValidator(object):
         return self.alphabets
 
     def __call__(self, value):
+        if value in self.empty:
+            return
         formats = self._get_formats()
         alphabets = self._get_alphabets()
         if not formats:
