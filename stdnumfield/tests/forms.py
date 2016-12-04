@@ -47,6 +47,15 @@ class FormFieldInitTest(TestCase):
             StdnumField,
         )
 
+    def test_alphabet_list_wrong_len(self):
+        self.assertRaisesMessage(
+            ValueError,
+            'StdnumField got alphabets and formats of different length',
+            StdnumField,
+            formats=['damm', 'oib'],
+            alphabets=['12345'],
+        )
+
 
 class FormFieldValidateTest(TestCase):
     formats = ['hr.oib']
@@ -55,6 +64,6 @@ class FormFieldValidateTest(TestCase):
     def test_validate(self, validator_class):
         field = StdnumField(formats=self.formats)
         field.validate(VALID_OIB)
-        validator_class.assert_called_once_with(self.formats)
+        validator_class.assert_called_once_with(self.formats, None)
         validator_instance = validator_class.return_value
         validator_instance.assert_called_once_with(VALID_OIB)

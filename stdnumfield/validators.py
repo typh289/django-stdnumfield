@@ -5,34 +5,47 @@ from stdnum.exceptions import ValidationError as Stdnum_ValidationError
 from django.utils.deconstruct import deconstructible
 
 from stdnumfield import settings
-from stdnumfield.utils import import_stdnum
+from stdnumfield.utils import import_stdnum, listify
 
 
 @deconstructible
 class StdnumFormatValidator(object):
     formats = []
+    alphabets = None
 
-    def __init__(self, formats):
-        self.formats = formats
+    def __init__(self, formats, alphabets=None):
+        if formats is not None:
+            self.formats = listify(formats)
+        if alphabets is not None:
+            self.alphabets = listify(alphabets)
 
     def _get_formats(self):
         if not self.formats:
             self.formats = settings.DEFAULT_FORMATS
         return self.formats
 
+    def _get_alphabets(self):
+        if self.alphabets is None:
+            self.alphabets = [None] * len(self._get_formats())
+        return self.alphabets
+
     def __call__(self, value):
         formats = self._get_formats()
+        alphabets = self._get_alphabets()
         if not formats:
             raise ValueError(
                 'StdnumFormatValidator called without specified formats')
-        for format in formats:
+        for format, alphabet in zip(formats, alphabets):
             try:
                 stdnum_format = import_stdnum(format)
             except ValueError:
                 raise
             else:
                 try:
-                    stdnum_format.validate(value)
+                    if alphabet is None:
+                        stdnum_format.validate(value)
+                    else:
+                        stdnum_format.validate(value, alphabet=alphabet)
                 except Stdnum_ValidationError:
                     pass
                 else:

@@ -1,7 +1,4 @@
-from .forms import (  # noqa
-    FormFieldInitTest,
-    FormFieldValidateTest,
-)
-from .validators import (  # noqa
-    ValidatorsTests,
-)
+# coding=utf-8
+from .forms import *  # noqa
+from .validators import *  # noqa
+from .models import *  # noqa
