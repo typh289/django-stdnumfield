@@ -6,6 +6,7 @@ from six import string_types
 
 from . import settings
 from .forms import StdnumField
+from .utils import listify
 
 
 __all__ = [
@@ -28,7 +29,13 @@ class StdNumField(models.CharField):
                     'settings.STDNUMFIELD["DEFAULT_FORMATS"]?'.format(
                         format,
                     ))
+        if 'alphabets' in kwargs:
+            alphabets = kwargs.pop('alphabets')
+            alphabets = listify(alphabets)
+        else:
+            alphabets = None
         self.formats = formats
+        self.alphabets = alphabets
         # TODO make dynamic when/if stdnum provides this data:
         kwargs["max_length"] = 254
         super(StdNumField, self).__init__(*args, **kwargs)

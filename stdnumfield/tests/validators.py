@@ -43,3 +43,17 @@ class ValidatorsTests(TestCase):
             validator,
             '69435151530',
         )
+
+    def test_custom_alphabet(self):
+        validator = StdnumFormatValidator(
+            formats='iso7064.mod_37_2',
+            alphabets='0123456789X',
+        )
+        validator('079X')
+
+    def test_custom_multiple_alphabets(self):
+        validator = StdnumFormatValidator(
+            formats=['iso7064.mod_37_2', 'iso7064.mod_37_36'],
+            alphabets=['0123456789X', '0123456789'],
+        )
+        validator('002006673085')

@@ -15,9 +15,9 @@ except (IOError, ImportError):
 
 setup(
     name='django-stdnumfield',
-    version='0.1.3',
+    version='0.1.4',
     packages=find_packages(),
-    install_requires=['python-stdnum>=1.4,<1.5'],
+    install_requires=['python-stdnum>=1.5,<1.6'],
     include_package_data=True,
     license='The Unlicense',
     description='Simple Django form and model fields for working with '
