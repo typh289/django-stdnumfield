@@ -7,11 +7,19 @@ except ImportError:
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
-from .forms import SampleForm
+from .forms import SampleForm, SampleModelForm
+from .models import SomeModel
 
 
 class SampleFormView(FormView):
     form_class = SampleForm
+    template_name = 'form.html'
+    success_url = reverse_lazy('success')
+
+
+class SampleModelFormView(FormView):
+    form_class = SampleModelForm
+    model = SomeModel
     template_name = 'form.html'
     success_url = reverse_lazy('success')
 

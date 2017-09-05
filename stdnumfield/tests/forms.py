@@ -4,6 +4,7 @@ try:
 except ImportError:
     from mock import patch
 
+from django.core.exceptions import ValidationError
 from django.test import TestCase
 
 from stdnumfield.forms import StdnumField
@@ -59,6 +60,19 @@ class FormFieldInitTest(TestCase):
             alphabets=['12345'],
         )
 
+    def test_error_message_override(self):
+        field = StdnumField(
+            formats='cz.dic',
+            error_messages={'stdnum_format': 'test_exception'},
+        )
+
+        self.assertRaisesRegexp(
+            ValidationError,
+            'test_exception',
+            field.clean,
+            '01234',
+        )
+
 
 class FormFieldValidateTest(TestCase):
     formats = ['hr.oib']
@@ -66,7 +80,7 @@ class FormFieldValidateTest(TestCase):
     @patch('stdnumfield.forms.StdnumFormatValidator')
     def test_validate(self, validator_class):
         field = StdnumField(formats=self.formats)
-        field.validate(VALID_OIB)
+        field.run_validators(VALID_OIB)
         validator_class.assert_called_once_with(self.formats, None)
         validator_instance = validator_class.return_value
         validator_instance.assert_called_once_with(VALID_OIB)

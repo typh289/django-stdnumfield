@@ -31,8 +31,6 @@ class StdnumField(forms.CharField):
                     ))
         self.formats = formats
         self.alphabets = alphabets
-
-    def validate(self, value):
-        super(StdnumField, self).validate(value)
-        validator = StdnumFormatValidator(self.formats, self.alphabets)
-        validator(value)
+        self.validators.append(
+            StdnumFormatValidator(self.formats, self.alphabets),
+        )

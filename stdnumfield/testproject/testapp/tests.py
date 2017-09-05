@@ -26,6 +26,25 @@ class SampleFormViewTest(TestCase):
         self.assertEqual(response.url, '/success/')
 
 
+class SampleModelFormViewTest(TestCase):
+
+    def setUp(self):
+        self.c = Client()
+
+    def test_invalid_value(self):
+        response = self.c.post(path='/model_form/', data={'oib': INVALID_OIB})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            escape('Foo error message'),
+        )
+
+    def test_valid_value(self):
+        response = self.c.post(path='/model_form/', data={'oib': VALID_OIB})
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/success/')
+
+
 class ModelFieldTests(TestCase):
 
     def setUp(self):
