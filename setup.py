@@ -5,14 +5,8 @@ from setuptools import setup
 # allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
-
-# markdown to restructured text:
-try:
-    import pypandoc
-
-    description = pypandoc.convert("README.md", "rst")
-except (IOError, ImportError):
-    description = ""
+with open("README.md", 'r') as f:
+    description = f.read()
 
 setup(
     name="django-stdnumfield",
@@ -28,12 +22,20 @@ setup(
             "tox",
             "mock",
             "black",
-        ]
+        ],
+        "ci": [
+            "Django>=2.2",
+            "coverage",
+            "flake8",
+            "tox",
+            "mock",
+            "black",
+        ],
     },
     include_package_data=True,
     license="The Unlicense",
-    description="Simple Django form and model fields for working with "
-    "stdnum fields.",
+    description=(
+        "Simple Django form and model fields for working with stdnum fields."),
     long_description=description,
     url="https://github.com/frnhr/django-stdnumfield",
     author="Fran Hrzenjak",
@@ -51,7 +53,6 @@ setup(
         "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",

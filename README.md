@@ -39,10 +39,9 @@ pip and [pyenv](https://github.com/pyenv/pyenv):
 pyenv install --skip-existing 3.7.4
 pyenv install --skip-existing 3.6.9
 pyenv install --skip-existing 3.5.7
-pyenv install --skip-existing 3.4.10
 pyenv install --skip-existing 2.7.16
 pyenv virtualenv 3.7.4 django-stdnumfield
-echo 'django-stdnumfield:2.7.16:3.6.9:3.5.7:3.4.10' > .python-version
+echo 'django-stdnumfield:2.7.16:3.6.9:3.5.7' > .python-version
 pip install -e .[dev]
 ```
 
