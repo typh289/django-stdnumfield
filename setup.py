@@ -2,6 +2,8 @@
 import os
 from setuptools import setup
 
+import stdnumfield
+
 # allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
@@ -10,7 +12,7 @@ with open("README.md", 'r') as f:
 
 setup(
     name="django-stdnumfield",
-    version="0.1.5",
+    version=stdnumfield.VERSION,
     packages=["stdnumfield"],
     install_requires=["python-stdnum>=1.11,<1.12"],
     extras_require={
