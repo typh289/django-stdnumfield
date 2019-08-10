@@ -45,3 +45,15 @@ pyenv virtualenv 3.7.4 django-stdnumfield
 echo 'django-stdnumfield:2.7.16:3.6.9:3.5.7:3.4.10' > .python-version
 pip install -e .[dev]
 ```
+
+Run the test project with:
+``` bash
+cd testproject
+./manage.py migrate
+./manage.py runserver
+```
+Then navigate to:
+  * http://localhost:8000/sample_form/
+  * http://localhost:8000/model_form/
+
+A valid number to test with: `12345678903` 
