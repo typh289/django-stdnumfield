@@ -3,6 +3,11 @@
 
 version: 0.1.5
 
+## What's an stdnum?
+
+See [python-stdnum](https://arthurdejong.org/python-stdnum/doc/1.5/index.html)
+
+
 ## Usage:
 
     from stdnumfield.models import StdNumField
@@ -23,10 +28,6 @@ version: 0.1.5
                     'stdnum_format':_("Not maching format %(format_list)s"),  # you can override exception message
                 },
             }
-
-## What's an stdnum?
-
-See [python-stdnum](https://arthurdejong.org/python-stdnum/doc/1.5/index.html)
 
 
 ## Local development and testing
