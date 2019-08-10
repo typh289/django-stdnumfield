@@ -1,17 +1,52 @@
-machine:
-  pre:
-    - wget https://s3.amazonaws.com/circle-downloads/circle-pyenv-python-3.5.1_1.0_amd64.deb
-    - sudo dpkg -i circle-pyenv-python-3.5.1_1.0_amd64.deb
-  python:
-    version: 3.5.1
-  post:
-    - pyenv global 2.7.10 3.4.4 3.5.1
-dependencies:
-  override:
-   - pip install -r requirements.txt
-test:
-  override:
-   - tox
-  post:
-    - ./bin/cover
-    - bash <(curl -s https://codecov.io/bash)
+version: 2
+jobs:
+  build:
+    working_directory: ~/django-stdnumfiled
+    docker:
+      # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
+      - image: "circleci/python:3.6.4-stretch"
+    steps:
+      - restore_cache:
+          keys:
+            - "pyenv 3.7.4 2.7.16 3.6.9 3.5.7 v4"
+      - run:
+          name: "Installing pyenv"
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev
+            sudo apt-get install -y libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev
+            sudo apt-get install -y xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
+            [[ -d "$HOME/.pyenv" ]] || curl https://pyenv.run | bash
+            echo 'export PATH="/home/circleci/.pyenv/bin:$PATH"' > ~/.pyenv/load
+            echo 'eval "$(pyenv init -)"' >> ~/.pyenv/load
+            echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.pyenv/load
+      - run:
+          name: "Installing Python versions"
+          command: |
+            source ~/.pyenv/load
+            pyenv install --skip-existing 3.7.4
+            pyenv install --skip-existing 3.6.9
+            pyenv install --skip-existing 3.5.7
+            pyenv install --skip-existing 2.7.16
+            pyenv global 3.7.4 2.7.16 3.6.9 3.5.7
+      - save_cache:
+          key: "pyenv 3.7.4 2.7.16 3.6.9 3.5.7 v3"
+          paths:
+            - ~/.pyenv
+      - checkout
+      - run:
+          name: "Installing tox"
+          command: |
+            source ~/.pyenv/load
+            pip install -e .[ci]
+      - run:
+          name: "Testing"
+          command: |
+            source ~/.pyenv/load
+            tox
+      - run:
+          name: "Uploading coverage"
+          command: |
+            source ~/.pyenv/load
+            ./bin/cover
+            bash <(curl -s https://codecov.io/bash)

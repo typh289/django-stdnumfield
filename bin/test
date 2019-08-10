@@ -1,5 +1,5 @@
 #!/bin/bash
 
 
-export PYTHONPATH="$PWD:$PWD/stdnumfield/testproject:$PYTHONPATH"
-python stdnumfield/testproject/manage.py test -v 3 testapp stdnumfield.tests
+export PYTHONPATH="$PWD:$PWD/testproject:$PYTHONPATH"
+python testproject/manage.py test -v 3 testapp

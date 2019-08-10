@@ -10,9 +10,7 @@ from .forms import StdnumField
 from .utils import listify
 
 
-__all__ = [
-    'StdNumField',
-]
+__all__ = ["StdNumField"]
 
 
 class StdNumField(models.CharField):
@@ -20,18 +18,17 @@ class StdNumField(models.CharField):
 
     def __init__(self, formats, *args, **kwargs):
         if formats is None:
-            raise ImproperlyConfigured('StdNumField defined without formats')
+            raise ImproperlyConfigured("StdNumField defined without formats")
         if not is_iterable(formats) or isinstance(formats, string_types):
             formats = [formats]
         for format in formats:
             if format not in settings.DEFAULT_FORMATS:
                 raise ValueError(
                     'Unknown format for StdNumField: "{}". Is it missing from '
-                    'settings.STDNUMFIELD["DEFAULT_FORMATS"]?'.format(
-                        format,
-                    ))
-        if 'alphabets' in kwargs:
-            alphabets = kwargs.pop('alphabets')
+                    'settings.STDNUMFIELD["DEFAULT_FORMATS"]?'.format(format)
+                )
+        if "alphabets" in kwargs:
+            alphabets = kwargs.pop("alphabets")
             alphabets = listify(alphabets)
         else:
             alphabets = None
@@ -41,23 +38,24 @@ class StdNumField(models.CharField):
         kwargs["max_length"] = 254
         super(StdNumField, self).__init__(*args, **kwargs)
         self.validators.append(
-            StdnumFormatValidator(self.formats, self.alphabets))
+            StdnumFormatValidator(self.formats, self.alphabets)
+        )
 
     def deconstruct(self):
         name, path, args, kwargs = super(StdNumField, self).deconstruct()
-        kwargs['formats'] = self.formats
-        kwargs['alphabets'] = self.alphabets
+        kwargs["formats"] = self.formats
+        kwargs["alphabets"] = self.alphabets
         del kwargs["max_length"]
         return name, path, args, kwargs
 
     def get_internal_type(self):
-        return 'CharField'
+        return "CharField"
 
     def formfield(self, **kwargs):
         defaults = {
-            'form_class': StdnumField,
-            'formats': self.formats,
-            'alphabets': self.alphabets,
+            "form_class": StdnumField,
+            "formats": self.formats,
+            "alphabets": self.alphabets,
         }
         defaults.update(kwargs)
         return super(StdNumField, self).formfield(**defaults)

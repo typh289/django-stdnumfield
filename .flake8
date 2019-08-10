@@ -3,4 +3,5 @@ exclude =
     .git__pycache__,docs/source/conf.py,old,build,disz,
     */migrations/*,
     */testproject/settings*,
+    stdnumfield/_formats.py,
     */manage.py

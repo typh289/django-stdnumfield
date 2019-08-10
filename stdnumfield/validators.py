@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from django.template.defaultfilters import truncatechars
 from stdnum.exceptions import ValidationError as Stdnum_ValidationError
 from django.utils.deconstruct import deconstructible
+from django.utils.translation import ugettext_lazy as _
 
 from stdnumfield import settings
 from stdnumfield.utils import import_stdnum, listify
@@ -12,13 +13,21 @@ from stdnumfield.utils import import_stdnum, listify
 class StdnumFormatValidator(object):
     formats = []
     alphabets = None
-    empty = (None, '')
+    empty = (None, "")
+    code = "stdnum_format"
+    message = _(
+        'Value does not match with any of the formats: "%(format_list)s"'
+    )
 
-    def __init__(self, formats, alphabets=None):
+    def __init__(self, formats, alphabets=None, message=None, code=None):
         if formats is not None:
             self.formats = listify(formats)
         if alphabets is not None:
             self.alphabets = listify(alphabets)
+        if message is not None:
+            self.message = message
+        if code is not None:
+            self.code = code
 
     def _get_formats(self):
         if not self.formats:
@@ -37,7 +46,8 @@ class StdnumFormatValidator(object):
         alphabets = self._get_alphabets()
         if not formats:
             raise ValueError(
-                'StdnumFormatValidator called without specified formats')
+                "StdnumFormatValidator called without specified formats"
+            )
         for format, alphabet in zip(formats, alphabets):
             try:
                 stdnum_format = import_stdnum(format)
@@ -54,5 +64,7 @@ class StdnumFormatValidator(object):
                 else:
                     return
         raise ValidationError(
-            'Value does not match with any of the formats: "{}"'
-            .format(truncatechars(', '.join(self.formats), 30)))
+            self.message,
+            code=self.code,
+            params={"format_list": truncatechars(", ".join(self.formats), 30)},
+        )
