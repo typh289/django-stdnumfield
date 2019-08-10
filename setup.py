@@ -22,6 +22,7 @@ setup(
             "tox",
             "mock",
             "black",
+            "twine",
         ],
         "ci": [
             "Django>=2.2",
@@ -37,6 +38,7 @@ setup(
     description=(
         "Simple Django form and model fields for working with stdnum fields."),
     long_description=description,
+    long_description_content_type="text/markdown",
     url="https://github.com/frnhr/django-stdnumfield",
     author="Fran Hrzenjak",
     author_email="fran@changeset.hr",
