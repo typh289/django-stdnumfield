@@ -20,7 +20,15 @@ setup(
     packages=["stdnumfield"],
     install_requires=["python-stdnum>=1.11,<1.12"],
     extras_require={
-        "dev": ["Django>=2.2", "coverage", "flake8", "tox", "mock", "black"]
+        "dev": [
+            "prettyprinter",
+            "Django>=2.2",
+            "coverage",
+            "flake8",
+            "tox",
+            "mock",
+            "black",
+        ]
     },
     include_package_data=True,
     license="The Unlicense",

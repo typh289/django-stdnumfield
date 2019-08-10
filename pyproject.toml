@@ -15,6 +15,6 @@ exclude = '''
     | build
     | dist
   )/
-  | stdnumfield/__init__.py
+  | setup.py
 )
 '''

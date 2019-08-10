@@ -3,13 +3,15 @@ from django.conf import settings
 from stdnumfield import STDNUM_FORMATS
 
 
-_STDNUMFIELD = {"DEFAULT_FORMATS": STDNUM_FORMATS.keys()}
+_DEFAULTS = {
+    "DEFAULT_FORMATS": STDNUM_FORMATS.keys(),
+}
 
-try:
-    _STDNUMFIELD.update(settings.STDNUMFIELD)
-except AttributeError:
-    pass
+_SETTINGS = getattr(settings, 'STDNUMFIELD', {})
 
-# locals().update(_STDNUMFIELD)  # let's keep things autocomplete-friendly:
 
-DEFAULT_FORMATS = _STDNUMFIELD["DEFAULT_FORMATS"]
+def _get(attribute):
+    return _SETTINGS.get(attribute, _DEFAULTS[attribute])
+
+
+DEFAULT_FORMATS = _get('DEFAULT_FORMATS')
