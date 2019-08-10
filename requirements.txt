@@ -1,6 +1,0 @@
-Django==1.10.3
-python-stdnum>=1.5,<1.6
-coverage
-flake8
-tox
-mock
