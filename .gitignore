@@ -1,6 +1,10 @@
+.idea
+*.*~
 .tox
 .coverage
 __pycache__
+*.pyc
+*.pyo
 db.sqlite3
 dist
 django_stdnumfield.egg-info
