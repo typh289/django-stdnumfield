@@ -9,7 +9,6 @@ from .test_forms import VALID_OIB, INVALID_OIB
 
 
 class ModelFieldTests(TestCase):
-
     def setUp(self):
         self.instance = SomeModel()
 
@@ -24,36 +23,28 @@ class ModelFieldTests(TestCase):
         CharField passes its max_length attribute to form fields created using
         the formfield() method.
         """
-        field = StdNumField('hr.oib')
+        field = StdNumField("hr.oib")
         self.assertEqual(254, field.formfield().max_length)
 
     def test_no_formats(self):
         self.assertRaisesMessage(
             ImproperlyConfigured,
-            'StdNumField defined without formats',
+            "StdNumField defined without formats",
             StdNumField,
-            None
+            None,
         )
 
     def test_wrong_format(self):
-        self.assertRaises(
-            ValueError,
-            StdNumField,
-            'damn'
-        )
+        self.assertRaises(ValueError, StdNumField, "damn")
 
     def test_alphabet_valid(self):
-        field = StdNumField('iso7064.mod_37_2', alphabets='0123456789X')
-        field.run_validators('0123456789X')
+        field = StdNumField("iso7064.mod_37_2", alphabets="0123456789X")
+        field.run_validators("0123456789X")
 
     def test_alphabet_invalid(self):
-        field = StdNumField('iso7064.mod_37_2', alphabets='0123456789X')
+        field = StdNumField("iso7064.mod_37_2", alphabets="0123456789X")
 
-        self.assertRaises(
-            ValidationError,
-            field.run_validators,
-            '0123456789Y'
-        )
+        self.assertRaises(ValidationError, field.run_validators, "0123456789Y")
 
     def test_save_valid(self):
         self.instance.oib = VALID_OIB
@@ -70,7 +61,4 @@ class ModelFieldTests(TestCase):
 
     def test_clean(self):
         self.instance.oib = INVALID_OIB
-        self.assertRaises(
-            ValidationError,
-            self.instance.full_clean
-        )
+        self.assertRaises(ValidationError, self.instance.full_clean)

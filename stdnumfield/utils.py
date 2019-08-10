@@ -20,7 +20,7 @@ def import_stdnum(num_format):
     """
     if num_format not in STDNUM_FORMATS:
         raise ValueError('Unknown stdnum format: "{}"'.format(num_format))
-    return importlib.import_module('stdnum.{}'.format(num_format))
+    return importlib.import_module("stdnum.{}".format(num_format))
 
 
 def listify(value):

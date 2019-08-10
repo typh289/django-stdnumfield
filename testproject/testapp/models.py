@@ -6,4 +6,4 @@ from stdnumfield.models import StdNumField
 
 class SomeModel(models.Model):
     name = models.CharField(max_length=100)
-    oib = StdNumField('hr.oib')
+    oib = StdNumField("hr.oib")

@@ -8,15 +8,11 @@ from .models import SomeModel
 
 
 class SampleForm(Form):
-    oib = StdnumField(formats=['hr.oib'])
+    oib = StdnumField(formats=["hr.oib"])
 
 
 class SampleModelForm(ModelForm):
     class Meta:
         model = SomeModel
-        fields = ('oib',)
-        error_messages = {
-            'oib': {
-                'stdnum_format': "Foo error message",
-            },
-        }
+        fields = ("oib",)
+        error_messages = {"oib": {"stdnum_format": "Foo error message"}}

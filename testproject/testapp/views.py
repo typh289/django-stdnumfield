@@ -13,16 +13,16 @@ from .models import SomeModel
 
 class SampleFormView(FormView):
     form_class = SampleForm
-    template_name = 'form.html'
-    success_url = reverse_lazy('success')
+    template_name = "form.html"
+    success_url = reverse_lazy("success")
 
 
 class SampleModelFormView(FormView):
     form_class = SampleModelForm
     model = SomeModel
-    template_name = 'form.html'
-    success_url = reverse_lazy('success')
+    template_name = "form.html"
+    success_url = reverse_lazy("success")
 
 
 class SuccessView(TemplateView):
-    template_name = 'success.html'
+    template_name = "success.html"

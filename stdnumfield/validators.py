@@ -13,8 +13,8 @@ from stdnumfield.utils import import_stdnum, listify
 class StdnumFormatValidator(object):
     formats = []
     alphabets = None
-    empty = (None, '')
-    code = 'stdnum_format'
+    empty = (None, "")
+    code = "stdnum_format"
     message = _(
         'Value does not match with any of the formats: "%(format_list)s"'
     )
@@ -46,7 +46,8 @@ class StdnumFormatValidator(object):
         alphabets = self._get_alphabets()
         if not formats:
             raise ValueError(
-                'StdnumFormatValidator called without specified formats')
+                "StdnumFormatValidator called without specified formats"
+            )
         for format, alphabet in zip(formats, alphabets):
             try:
                 stdnum_format = import_stdnum(format)
@@ -65,5 +66,5 @@ class StdnumFormatValidator(object):
         raise ValidationError(
             self.message,
             code=self.code,
-            params={'format_list': truncatechars(', '.join(self.formats), 30)},
+            params={"format_list": truncatechars(", ".join(self.formats), 30)},
         )
